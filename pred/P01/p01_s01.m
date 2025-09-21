@@ -1,10 +1,10 @@
-clear;clc;
+clear ;clc;
 
 g0 = @(u) 20*sqrt(max(0,u-100));
 g1 = @(u) 10*sqrt(u);
 g2 = @(x) x/2;
 b = 1000;
-%x0 = b;
+% x0 = b;
 %x_k+1 = x_k - u_k
 
 xs = [0:b]';
