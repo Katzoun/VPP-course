@@ -1,12 +1,43 @@
-clear;close;
+clear;clc;
+
 b = 1;
-N = 3; Xs = 0:0.01:b; alpha = 0.8;
+N = 10; 
 
-tol = 1e-8;
+x0 = 1
+Xs = [1,2,3,4,5];
 
-g_k = @(x,u,w) -2*sqrt(u);
+gp= [1, 0.9, 0.6, 0.4, 0]; %gp(x_k)   
+ga = [0, -0.4, -1]; %ga(x_k)  
+
+g_k @(x,u)
 g_N = @(x) 0;
+
 f_k = @(x,u,w) x-u;
+
+
+N = 10; S = 5; A = 3;              % horizon, states, actions
+
+
+
+% P(:,:,u+1) -- transition matrix for action u
+P = zeros(S,S,A);
+
+% u = 0 (do nothing)
+P(:,:,1) = [0.6 0.3 0.1 0   0 ;
+            0   0.7 0.2 0.1 0 ;
+            0   0   0.75 0.15 0.10;
+            0   0   0    0.8 0.2;
+            0   0   0    0   1.0];
+
+% u = 1 (repair)
+P(:,:,2) = [1   0   0   0   0;
+            0.9 0.1 0   0   0;
+            0   0.9 0.1 0   0;
+            0   0   0.9 0.1 0;
+            0   0   0   0.9 0.1];
+
+% u = 2 (buy new)
+P(:,:,3) = repmat([1 0 0 0 0], S, 1);
 
 J = zeros(length(Xs),N+1);
 mu = zeros(length(Xs),N);
