@@ -32,8 +32,8 @@ Us = [0,1,2];
 gp= [1, 0.9, 0.6, 0.4, 0]; %gp(x_k)   
 ga = [0, -0.4, -1]; %ga(u_k)  
 
-g_N = @(x) - gp(x); %zaporne kvuli minimalizaci
-g_k = @(x,u)  -( gp(x) + ga(u+1));
+g_N = @(x)  gp(x);
+g_k = @(x,u)  ( gp(x) + ga(u+1));
 
 f_k = @(x,u,w) w; %x_k+1
 
@@ -57,8 +57,8 @@ for k=N:-1:1
             J_sub(ii) = g_k(x_cur,u_cur) + dot(Ws,J(:,k+1));
 
         end
-        [minval,minpos] = min(J_sub);
-        J(i,k) = minval; mu(i,k) = Us(minpos);
+        [maxval,maxpos] = max(J_sub);
+        J(i,k) = maxval; mu(i,k) = Us(maxpos);
     end
 end
 
