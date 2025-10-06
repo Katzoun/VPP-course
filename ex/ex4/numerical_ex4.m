@@ -3,7 +3,7 @@ clear;clc;
 M = 4; % inventory capacity
 N = 15; % horizon
 Xs = 0:M; % states
-Ss = 0:M; % yesterday's order (arrives this evening)
+Ss = 0:M-1; % yesterday's order (arrives this evening)
 Us = 0:M-1; % today's order (arrives tomorrow evening)
 Ws = 0:3 ; % demand in a day k
 ps = [0.1,0.3,0.5,0.1]; % disturbance probabilities
