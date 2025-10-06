@@ -12,7 +12,7 @@ f_k = @(x,s,w) min(max(x-w,0)+s,M); %x_k+1, s_k = u_k-1
 f_s = @(u) u; %s_k+1 = u_k
 
 c1 = @(x) sqrt(x); %cost of inventory
-c2 = @(u) 2*u * (u > 0); % cost of order
+c2 = @(u) (u==0).*0 + (u>0).*(0.2 + u);
 c3 = @(x,w) -3 * min(x,w); % profit of selling (negative cost)
 
 
@@ -61,7 +61,7 @@ for k=N:-1:1
 end
 
 %% simulation
-n_sim = 10000; x0 = 1; s0 = 0;
+n_sim = 10000; x0 = 0; s0 = 0;
 J_sim = zeros(n_sim,1); 
 x_sim = zeros(n_sim,N+1); x_sim(:,1) = x0;
 s_sim = zeros(n_sim,N+1); s_sim(:,1) = s0;
